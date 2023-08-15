@@ -125,7 +125,7 @@ function App() {
             <div key={element.todo_id} style={{ border: "1px solid black", padding: "20px" }}>
               <button
                 onClick={() => {
-                  handleDeleteTodo(element.todo_id);
+                  handleDeleteTodo(element.todo_id)
                 }}
                 >
                 -
