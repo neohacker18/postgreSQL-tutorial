@@ -66,6 +66,10 @@ app.delete("/deleteTodo/:id",async (req,res)=>{
   }
 })
 
+app.get('/',(req,res)=>{
+  return res.status(200).send(`<h4>API is in working condition</h4>`)
+})
+
 app.listen(PORT, () => {
   console.log(`server has started on port number ${PORT}`);
 });
