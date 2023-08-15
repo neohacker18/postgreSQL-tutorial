@@ -30,7 +30,7 @@ function App() {
   const handleAddTodo = async (): Promise<string> => {
     try {
       setIsDisabled(true);
-      const { data } = await axios.post("http://localhost:5000/addTodo", {
+      const { data } = await axios.post("https://postgresql-tutorial-backend1.onrender.com/addTodo", {
         description: description,
         tag: tag,
       });
@@ -55,7 +55,7 @@ function App() {
     if (description.length && tag.length) setIsDisabled(false);
   }, [description, tag]);
   const handleAllTodos = async (): Promise<string> => {
-    const { data } = await axios.get("http://localhost:5000/getAllTodos");
+    const { data } = await axios.get("https://postgresql-tutorial-backend1.onrender.com/getAllTodos");
     setTodoData(await data.data);
     // console.log(await data)
     // console.log(localData[0])
@@ -66,7 +66,7 @@ function App() {
   }, [message]);
   const handleDeleteTodo = async (id): Promise<string> => {
     const { data } = await axios.delete(
-      `http://localhost:5000/deleteTodo/${id}`
+      `https://postgresql-tutorial-backend1.onrender.com/deleteTodo/${id}`
     );
     handleAllTodos();
     return "";
@@ -79,7 +79,7 @@ function App() {
     return "";
   };
   const handleCallUpdate=async()=>{
-    await axios.put("http://localhost:5000/updateTodo",{
+    await axios.put("https://postgresql-tutorial-backend1.onrender.com/updateTodo",{
       description:description,
       tag:tag,
       id:id,
