@@ -1,0 +1,1 @@
+Learning PostgreSQL and Typescript by creating a simple Note Making App. This has global sharing so any note added will be visible to every other person
