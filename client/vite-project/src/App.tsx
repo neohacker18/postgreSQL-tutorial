@@ -1,23 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import {BsPencilSquare} from 'react-icons/bs'
-const localData = [
-  {
-    todo_id: 2,
-    description: "aryan",
-    tag: "homework",
-  },
-  {
-    todo_id: 11,
-    description: "fafa",
-    tag: "afsa",
-  },
-  {
-    todo_id: 12,
-    description: "hello ",
-    tag: "world",
-  },
-];
 
 function App() {
   const [description, setDescription] = useState<string>("");
@@ -30,7 +13,7 @@ function App() {
   const handleAddTodo = async (): Promise<string> => {
     try {
       setIsDisabled(true);
-      const { data } = await axios.post("https://postgresql-tutorial-backend1.onrender.com/addTodo", {
+      await axios.post("https://postgresql-tutorial-backend1.onrender.com/addTodo", {
         description: description,
         tag: tag,
       });
@@ -64,14 +47,14 @@ function App() {
   useEffect(() => {
     handleAllTodos();
   }, [message]);
-  const handleDeleteTodo = async (id): Promise<string> => {
-    const { data } = await axios.delete(
+  const handleDeleteTodo = async (id:number): Promise<string> => {
+    await axios.delete(
       `https://postgresql-tutorial-backend1.onrender.com/deleteTodo/${id}`
     );
     handleAllTodos();
     return "";
   };
-  const handleUpdateTodo = (element): string => {
+  const handleUpdateTodo = (element:{description:string,tag:string,todo_id:number}): string => {
     setDescription(element.description)
     setTag(element.tag)
     setId(element.todo_id)
@@ -138,12 +121,11 @@ function App() {
             width: "100%",
           }}
         >
-          {todoData.map((element) => (
+          {todoData.map((element:{description:string,tag:string,todo_id:number}) => (
             <div key={element.todo_id} style={{ border: "1px solid black", padding: "20px" }}>
               <button
                 onClick={() => {
-                  let id = element.todo_id;
-                  handleDeleteTodo(id);
+                  handleDeleteTodo(element.todo_id);
                 }}
                 >
                 -
@@ -152,7 +134,6 @@ function App() {
               <h5>Description: {element.description}</h5>
               <h5>Tag: {element.tag}</h5>
               <BsPencilSquare style={{cursor:'pointer'}} onClick={()=>{
-                let id = element.todo_id;
                 handleUpdateTodo(element);
               }}/>
             </div>
